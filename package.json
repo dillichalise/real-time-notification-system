@@ -1,11 +1,11 @@
 {
   "name": "real-time-notification-system",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node src/index.ts",
-    "watch": "nodemon src/index.ts",
+    "dev": "ts-node src/server.ts",
+    "watch": "nodemon src/server.ts",
     "format": "prettier --write ."
   },
   "author": "Dilli Chalise",
@@ -13,11 +13,13 @@
   "description": "",
   "dependencies": {
     "dotenv": "^16.4.7",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.1",
+    "@types/socket.io": "^3.0.1",
     "nodemon": "^3.0.1",
     "prettier": "^3.4.2",
     "ts-node": "^10.9.2",
