@@ -18,7 +18,7 @@ const io = new Server(httpServer, {
 });
 
 const store = new MemoryStore();
-const eventEmitter = new NotificationEventEmitter(io);
+const notificationEventEmitter = new NotificationEventEmitter(io);
 
 app.use(express.json());
 app.use(requestLogger);
@@ -31,20 +31,22 @@ const setupEventHandlers = (): void => {
   const events: EventType[] = ['price_update', 'new_article'];
 
   events.forEach((eventType: EventType) => {
-    console.log('hello');
     // Listen for events emitted by the simulation
-    eventEmitter.emitEvent(eventType, (payload: EventPayload<EventType>) => {
-      console.log('Payload', payload);
-      //Get a list of subscribers
-      const subscribers: Subscription<EventType>[] =
-        store.getSubscriptions(eventType);
-      console.log('subscribers', subscribers);
+    notificationEventEmitter.emitEvent(
+      eventType,
+      (payload: EventPayload<EventType>) => {
+        console.log('Payload', payload);
+        //Get a list of subscribers
+        const subscribers: Subscription<EventType>[] =
+          store.getSubscriptions(eventType);
+        console.log('subscribers', subscribers);
 
-      subscribers.forEach((sub: Subscription<EventType>) => {
-        //Notify subscribers about the event
-        eventEmitter.notifyClient(sub.userId, eventType, payload);
-      });
-    });
+        subscribers.forEach((sub: Subscription<EventType>) => {
+          //Notify subscribers about the event
+          notificationEventEmitter.notifyClient(sub.userId, eventType, payload);
+        });
+      }
+    );
   });
 };
 

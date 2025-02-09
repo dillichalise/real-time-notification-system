@@ -60,11 +60,11 @@ router.post(
   '/delete',
   validateSubscriptionRequest,
   (
-    req: Request<{}, {}, {}, UnsubscribeRequest>,
+    req: Request<{}, {}, UnsubscribeRequest>,
     res: Response<ApiResponse<null>>
   ): void => {
     try {
-      const { userId, eventType } = req.query;
+      const { userId, eventType } = req.body;
 
       if (!isValidEventType(eventType)) {
         res.status(400).json({
